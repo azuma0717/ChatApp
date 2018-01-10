@@ -21,15 +21,22 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         editText = findViewById(R.id.editMessege);
+
+        //親配下にMessagesを作成
         mDatabase = FirebaseDatabase.getInstance().getReference().child("Messages");
 
     }
 
+    //sendボタンを押したら、発動
     public void sendButtonClicked(View view){
 
         final String messageValue = editText.getText().toString().trim();
+
+        //空じゃなかったら発動
         if(!TextUtils.isEmpty(messageValue)){
 
+            //Messages - "ID" - content：メッセージ
+            //push()をすると、勝手に"ID"を生成する。
             final DatabaseReference newPost = mDatabase.push();
             newPost.child("content").setValue(messageValue);
 
